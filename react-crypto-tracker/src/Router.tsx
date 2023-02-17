@@ -11,4 +11,5 @@ function Rounter() {
     </BrowserRouter>
   );
 }
+//<Route path:"/:CoinId/*" />는 중첩 Router를 받겠다는 말과 동일하다
 export default Rounter;
