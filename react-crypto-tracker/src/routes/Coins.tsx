@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import fetchCoins from "../api";
+import { fetchCoins } from "../api";
 const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
