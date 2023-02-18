@@ -11,9 +11,9 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
-
 import Chart from "./Chart";
 import Price from "./Price";
+import { Helmet } from "react-helmet-async";
 
 const Title = styled.h1`
   font-size: 48px;
@@ -79,6 +79,9 @@ const Tab = styled.span<{ isActive: boolean }>`
       props.isActive ? props.theme.accentColor : props.theme.textColor};
   }
 `;
+interface CoinIdType {
+  CoinId?: string;
+}
 
 interface CoinStateType {
   name: string;
@@ -177,6 +180,15 @@ function Coin() {
 
   return (
     <Container>
+      <Helmet>
+        <title>
+          {CoinName?.name
+            ? CoinName.name
+            : loading
+            ? "loading.."
+            : infoData?.name}
+        </title>
+      </Helmet>
       <Header>
         <Title>
           {CoinName?.name
@@ -225,8 +237,8 @@ function Coin() {
           </Tabs>
 
           <Routes>
-            <Route path="price" element={<Price />} />
-            <Route path="chart" element={<Chart />} />
+            <Route path="price" element={<Price CoinId={`${CoinId}`} />} />
+            <Route path="chart" element={<Chart CoinId={`${CoinId}`} />} />
           </Routes>
         </>
       )}
