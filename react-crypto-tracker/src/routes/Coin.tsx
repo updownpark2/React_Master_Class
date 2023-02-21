@@ -1,5 +1,3 @@
-import { info } from "console";
-import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import {
   Routes,
@@ -140,6 +138,9 @@ interface PriceData {
       volume_24h_change_24h: number;
     };
   };
+}
+interface ICoinProps {
+  isDark: boolean;
 }
 
 function Coin() {

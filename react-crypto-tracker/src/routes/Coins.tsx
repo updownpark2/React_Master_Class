@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { fetchCoins } from "../api";
 import { Helmet } from "react-helmet-async";
+import { useSetRecoilState } from "recoil";
+import { isDarkAtom } from "./atoms";
 const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
@@ -23,7 +25,7 @@ const Header = styled.header`
 const CoinsList = styled.ul``;
 const Coin = styled.h1`
   background-color: white;
-  color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
   padding: 20px;
   margin-bottom: 10px;
   border-radius: 15px;
@@ -62,6 +64,7 @@ interface CoinInterface {
 }
 
 function Coins() {
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
   const { isLoading, data } = useQuery<CoinInterface[]>(
     ["allCoins"],
     fetchCoins
@@ -86,6 +89,9 @@ function Coins() {
       </Helmet>
       <Header>
         <Title>코인</Title>
+        <button onClick={() => setDarkAtom((current) => !current)}>
+          Toggle Mode
+        </button>
       </Header>
       {isLoading ? (
         <Loader>isLoading...</Loader>
@@ -93,7 +99,7 @@ function Coins() {
         <CoinsList>
           {data?.slice(0, 100).map((coin) => (
             <Coin key={`/${coin.id}`}>
-              <Link to={coin.id} state={{ name: coin.name }}>
+              <Link to={`/${coin.id}`} state={{ name: coin.name }}>
                 <Img
                   src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
                 />
