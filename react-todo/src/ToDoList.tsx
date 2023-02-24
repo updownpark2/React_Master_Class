@@ -6,6 +6,7 @@ interface IForm {
   CHECK: { type: string; message: string };
   ID: { type: string; message: string };
   PASS: { type: string; message: string };
+  extraError?: string;
 }
 
 const Login = () => {
@@ -13,10 +14,20 @@ const Login = () => {
     register,
     watch,
     handleSubmit,
+    setError,
     formState: { errors },
-  } = useForm<IForm>();
-  const Pass = (data: IForm) => {
+  } = useForm();
+  const Pass = (data: any) => {
+    if (data.PASS !== data.CHECK) {
+      return setError(
+        "PASS",
+        { message: "PassWord are not the same" },
+        { shouldFocus: true }
+      );
+    }
     console.log(data);
+    console.log("asd");
+    setError("extraError", { message: "Server offline" });
   };
   console.log(errors?.ID?.message);
 
@@ -29,6 +40,7 @@ const Login = () => {
         <input
           {...register("ID", {
             required: { value: true, message: "필수입력사항입니다." },
+            validate: (value) => value.includes("nico"),
           })}
           placeholder="ID"
         />
@@ -49,6 +61,7 @@ const Login = () => {
           })}
           placeholder="CHECK"
         />
+        <span>{errors?.extraError?.message as string}</span>
       </form>
     </div>
   );
