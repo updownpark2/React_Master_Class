@@ -5,7 +5,7 @@ interface ITodo {
   todo?: string;
 }
 
-const TodolistTraining = () => {
+const Todo = () => {
   const { register, watch, handleSubmit, reset } = useForm();
   const [todo, setTodo] = useState<ITodo[]>([]);
 
@@ -30,4 +30,4 @@ const TodolistTraining = () => {
   );
 };
 
-export default TodolistTraining;
+export default Todo;
