@@ -1,31 +1,25 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
-interface ITodo {
-  todo?: string;
-}
+import { atom, useRecoilState, useRecoilValue } from "recoil";
+import toDoState from "./atoms";
+import CreateToDo from "./CreateToDo";
+import ToDoPaint from "./ToDoPaint";
 
 const Todo = () => {
-  const { register, watch, handleSubmit, reset } = useForm();
-  const [todo, setTodo] = useState<ITodo[]>([]);
+  const toDos = useRecoilValue(toDoState);
 
-  const Pass = () => {
-    setTodo((current: any) => [watch("Todo"), ...current]);
-  };
+  /*
+  const value = useRecoilValue(toDoState);
+  const modFn = useSetRecoilState(toDoState);
+  */
 
+  console.log(toDos);
   return (
     <div>
-      <form onSubmit={handleSubmit(Pass)}>
-        <input {...register("Todo")} placeholder="todolist" />
-        <button>제출</button>
-      </form>
-      <div>
-        <ul>
-          {todo?.map((item: any, index) => (
-            <li key={index}>{`🔥 ${item}`}</li>
-          ))}
-        </ul>
-      </div>
+      <h1>To Dos</h1>
+      <hr></hr>
+      <CreateToDo />
+      <ToDoPaint />
     </div>
   );
 };
