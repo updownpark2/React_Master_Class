@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { toDoList } from "../atoms";
+import TodoPaint from "./TodoPaint";
 
 //여기서 Input을받아온다.
 
@@ -25,6 +26,7 @@ function TodoInput() {
       <form onSubmit={handleSubmit(PassValidation)}>
         <input {...register("Todo")} placeholder="해야할 일!!" />
       </form>
+      <TodoPaint />
     </div>
   );
 }
